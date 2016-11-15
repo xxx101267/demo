@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>我的text</title>
+		<style>
+			ul{
+				margin: 0;
+				padding: 0;
+			}
+			li{
+				list-style: none;
+			}
+			a{
+				text-decoration: none;
+			}
+			.clearFix:after{
+				content: "";
+				clear: both;
+				display: block;
+			}
+			#wrap{
+				height:100px;
+				width:1278px;
+				position: relative;
+			}
+			.listW{
+				float: left;
+				text-align: center;
+			}
+			.listW ul{
+				display: none;
+				position: absolute;
+				left:0;
+				top:50px;
+				width:100%;
+				background-color: orangered;
+			}
+			.listW>a{
+				background-color: black;
+				width:140px;
+				height:30px;
+				float: left;
+				color: white;
+				line-height: 30px;
+				margin-right: 2px;
+			}
+			.listW ul li a{
+				float: left;
+				height:30px;
+				line-height: 30px;
+				padding-left: 40px;
+				padding-right: 40px;
+				color: white;
+			}
+			.listW ul li a:hover{
+				text-decoration: underline;
+			}
+			#wrap .active{
+				background-color: orangered;
+			}
+		</style>
+		
+	</head>
+	<body>
+		<ul id="wrap" class="clearFix">
+			<li class="listW">
+				<a href="#" class="active">首页</a>
+				<ul><li></li></ul>
+			</li>
+			<li class="listW">
+				<a href="#">天猫国际</a>
+				<ul>
+					<li><a href="javascript:;">美妆个护</a></li>
+					<li><a href="javascript:;">食品保健</a></li>
+					<li><a href="javascript:;">母婴用品</a></li>
+					<li><a href="javascript:;">服饰鞋包</a></li>
+					<li><a href="javascript:;">生活数码</a></li>
+				</ul>
+			</li>
+			<li class="listW">
+				<a href="#">天猫超市</a>
+				<ul>
+					<li><a href="javascript:;">进口商品</a></li>
+					<li><a href="javascript:;">食品饮料</a></li>
+					<li><a href="javascript:;">粮油副食</a></li>
+					<li><a href="javascript:;">美容洗护</a></li>
+				</ul>
+			</li>
+			<li class="listW">
+				<a href="#">品牌街</a>
+				<ul>
+					<li><a href="javascript:;">时尚芭莎</a></li>
+					<li><a href="javascript:;">芒果TV</a></li>
+					<li><a href="javascript:;">美丽俏佳人</a></li>
+				</ul>
+			</li>
+			<li class="listW">
+				<a href="#">电器城</a>
+				<ul>
+					<li><a href="javascript:;">空调</a></li>
+					<li><a href="javascript:;">平板电视</a></li>
+					<li><a href="javascript:;">热水器</a></li>
+					<li><a href="javascript:;">厨房电器</a></li>
+					<li><a href="javascript:;">智能数码</a></li>
+					<li><a href="javascript:;">电脑硬件</a></li>
+					<li><a href="javascript:;">摄影摄像</a></li>
+				</ul>
+			</li>
+			<li class="listW">
+				<a href="#">喵鲜生</a>
+				<ul>
+					<li><a href="javascript:;">当季水果</a></li>
+					<li><a href="javascript:;">新鲜水产</a></li>
+					<li><a href="javascript:;">放心鲜肉</a></li>
+				</ul>
+			</li>
+			<li class="listW">
+				<a href="#">医药馆</a>
+				<ul>
+					<li><a href="javascript:;">家庭常备</a></li>
+					<li><a href="javascript:;">中西药品</a></li>
+					<li><a href="javascript:;">医疗健康服务</a></li>
+					<li><a href="javascript:;">健康保健</a></li>
+				</ul>
+			</li>
+			<li class="listW">
+				<a href="#">魅力惠</a>
+				<ul>
+					<li><a href="javascript:;">今日上新</a></li>
+					<li><a href="javascript:;">女士</a></li>
+					<li><a href="javascript:;">男士</a></li>
+					<li><a href="javascript:;">美妆</a></li>
+					<li><a href="javascript:;">家居</a></li>
+					<li><a href="javascript:;">婴童</a></li>
+				</ul>
+			</li>
+			<li class="listW">
+				<a href="#">阿里旅行</a>
+				<ul>
+					<li><a href="javascript:;">国内机票</a></li>
+					<li><a href="javascript:;">酒店</a></li>
+					<li><a href="javascript:;">景点门票</a></li>
+					<li><a href="javascript:;">国家馆</a></li>
+					<li><a href="javascript:;">客栈公寓</a></li>
+				</ul>
+			</li>
+		</ul>
+		
+		<script>
+			//获取元素
+			var titles=document.querySelectorAll(".listW>a");//获取所有标题
+			var menus=document.querySelectorAll(".listW ul");//获取每个标题下的列表
+			
+			for(var i=1;i<titles.length;i++){
+				titles[i].index=i;
+				menus[i].index=i;
+				var timer=null;
+				//onmouseover
+				titles[i].onmouseover=function(){
+					for(var i=1;i<titles.length;i++){//清空所有
+						titles[i].className="";
+						menus[i].style.display="none";
+					}
+					this.className="active";//移入当前加状态
+					menus[this.index].style.display="block";//移入当前加状态
+				}
+				//标题onmouseout
+				titles[i].onmouseout=function(){
+					outFn(this);
+					/*var that = this;//因为定时器里面有个function，this不能用了
+					//延迟消失
+					clearTimeout(timer);
+					timer=setTimeout(function(){
+						menus[that.index].style.display="none";
+						titles[that.index].className="";
+					},1000)*/
+				}
+				//列表onmouseover
+				menus[i].onmouseover=function(){
+					clearTimeout(timer);//关闭定时器
+				}
+				//列表onmouseout
+				menus[i].onmouseout=function(){
+					outFn(this);
+					/*var that = this;
+					clearTimeout(timer);
+					timer=setTimeout(function(){
+						menus[that.index].style.display="none";
+						titles[that.index].className="";
+					},1000)*/
+				}
+			}
+			function outFn(a){
+				//延迟消失的定时器
+				clearTimeout(timer);//关闭定时器
+				timer=setTimeout(function(){  //开启定时器
+					menus[a.index].style.display="none";
+					titles[a.index].className="";
+				},1000)
+			}
+		</script>
+	</body>
+</html>
